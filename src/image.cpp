@@ -11,7 +11,7 @@ bool hasStencilComponent(VkFormat format) {
     return format == VK_FORMAT_D32_SFLOAT_S8_UINT || format == VK_FORMAT_D24_UNORM_S8_UINT;
 }
 
-}
+} // namespace <anonymous>
 
 void createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory) {
     VkImageCreateInfo imageInfo{};
@@ -163,4 +163,4 @@ VkFormat findSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTil
 }
 
 
-}
+} // namespace RenderEngine

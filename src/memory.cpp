@@ -21,7 +21,7 @@ uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
     return NULL;
 }
 
-}
+} // namespace <anonymous>
 
 void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory) {
     VkBufferCreateInfo bufferInfo{};
@@ -129,4 +129,4 @@ void copyDataToMemory(VkDeviceMemory& destinationMemory, VkDeviceSize& size, voi
     vkUnmapMemory(logicalDevice, destinationMemory);
 }
 
-}
+} // namespace RenderEngine

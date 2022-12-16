@@ -17,6 +17,6 @@ void allocateMemory(uint32_t typeFilter, VkMemoryPropertyFlags properties, VkMem
 
 void copyDataToMemory(VkDeviceMemory& destinationMemory, VkDeviceSize& size, void* source);
 
-}
+} // namespace RenderEngine
 
 #endif

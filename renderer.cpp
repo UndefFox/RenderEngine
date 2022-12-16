@@ -14,7 +14,9 @@ namespace RenderEngine {
 
 namespace {
 
-void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex, std::vector<int> IDs, std::vector<std::array<float, 3>> dinamic) {
+std::vector<DrawCall> drawCalls{};
+
+void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex, std::vector<int> IDs) {
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 
@@ -60,12 +62,12 @@ void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex, std
     vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,   pipelineLayout, 0, 1, &  descriptorSet, 0, nullptr);
 
     ObjectConstant constant{};
-    for (int i = 0; i < IDs.size(); i++) {
-        constant.pos = {dinamic[i][0], dinamic[i][1], dinamic[i][2]};
+    for (DrawCall drawCall : drawCalls) {
+        constant.pos = {drawCall.position[0], drawCall.position[1], drawCall.position[2]};
 
         vkCmdPushConstants(commandBuffer, pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(constant), &constant);
         
-        vkCmdDrawIndexed(commandBuffer, savedObjects[IDs[i]].indexAmount, 1, savedObjects[IDs[i]].firstIndexIndex, savedObjects[IDs[i]].firstVertexIndex, 0);
+        vkCmdDrawIndexed(commandBuffer, savedObjects[drawCall.meshId].indexAmount, 1, savedObjects[drawCall.meshId].firstIndexIndex, savedObjects[drawCall.meshId].firstVertexIndex, 0);
     }
 
     vkCmdEndRenderPass(commandBuffer);
@@ -88,10 +90,10 @@ void updateUniformBuffer() {
     vkUnmapMemory(logicalDevice, uniformBufferMemory);
 }
 
-}
+} // namespace <anonimous>
 
 
-void drawFrame(std::vector<int> IDs, std::vector<std::array<float, 3>> dinamic) {
+void drawFrame(std::vector<int> IDs) {
     vkWaitForFences( logicalDevice, 1, & inFlightFence, VK_TRUE, UINT64_MAX);
 
     uint32_t imageIndex;
@@ -113,7 +115,7 @@ void drawFrame(std::vector<int> IDs, std::vector<std::array<float, 3>> dinamic) 
 
     vkResetCommandBuffer(commandBuffer, 0);
 
-    recordCommandBuffer(commandBuffer, imageIndex, IDs, dinamic);
+    recordCommandBuffer(commandBuffer, imageIndex, IDs);
 
     updateUniformBuffer();
 
@@ -149,14 +151,19 @@ void drawFrame(std::vector<int> IDs, std::vector<std::array<float, 3>> dinamic) 
     if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
         vkDeviceWaitIdle(logicalDevice);
 
-         destroyDepthResources();
-         destroySwapchain();
-         createSwapchain();
-         createDepthResources();
-         createFramebuffers();
+        destroyDepthResources();
+        destroySwapchain();
+        createSwapchain();
+        createDepthResources();
+        createFramebuffers();
 
     }
+
+    drawCalls.clear();
 }
 
-    
+void addDrawCall(DrawCall drawCall) {
+    drawCalls.push_back(drawCall);
 }
+    
+} // namespace RenderEngine

@@ -82,6 +82,6 @@ void createDescriptorSet();
 void createSyncObjects();
 void destroySyncObjects();
 
-}
+} // namespace RenderEngine
 
 #endif

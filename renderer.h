@@ -9,8 +9,15 @@ namespace RenderEngine {
 /**
  * Draws a new frame and displaying it on window.
  */
-void drawFrame(std::vector<int> IDs, std::vector<std::array<float, 3>> dynamic);
+void drawFrame(std::vector<int> IDs);
 
-}
+struct DrawCall {
+    int meshId;
+    std::array<float, 3> position;
+};
+
+void addDrawCall(DrawCall drawCall);
+
+} // namespace RenderEngine
 
 #endif

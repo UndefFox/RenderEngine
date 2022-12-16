@@ -16,6 +16,6 @@ VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags a
 
 VkFormat findSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 
-}
+} // namespace RenderEngine
 
 #endif

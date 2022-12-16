@@ -55,7 +55,8 @@ void createShaderModule(const std::vector<char>& code, VkShaderModule& shaderMod
 
     vkCreateShaderModule(logicalDevice, &createInfo, nullptr, &shaderModule);
 }
-} // namespace
+
+} // namespace <anonymous>
 
 
 void createSurface() {
@@ -719,4 +720,4 @@ void destroySyncObjects() {
     vkDestroySemaphore(logicalDevice, imageAvailableSemaphore, nullptr);
 }
 
-}
+} // namespace RenderEngine

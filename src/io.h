@@ -8,6 +8,6 @@ namespace RenderEngine {
 
 void loadShaderFile(std::string filename, std::vector<char>& code);
 
-}
+} // namespace RenderEngine
 
 #endif

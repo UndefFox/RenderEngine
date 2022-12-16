@@ -28,7 +28,7 @@ namespace {
 
         renderConfigurated = false;
     }
-}
+} // namespace <anonymous>
 
 void initializate() {
     createVulkanInstance();
@@ -90,4 +90,4 @@ std::vector<DeviceInfo> getAvailableDevices(GLFWwindow* window) {
 }
 
 
-}
+} // namespace RenderEngine

@@ -66,6 +66,6 @@ void configurateRender(RenderSettings& settings);
 std::vector<DeviceInfo> getAvailableDevices(GLFWwindow* window);
 
 
-}
+} // namespace RenderEngine
 
 #endif

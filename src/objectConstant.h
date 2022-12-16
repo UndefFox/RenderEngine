@@ -10,6 +10,6 @@ struct ObjectConstant {
     glm::vec3 pos;
 };
 
-}
+} // namespace RenderEngine
 
 #endif

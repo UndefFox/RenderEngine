@@ -13,6 +13,6 @@ struct Vertex {
     alignas(16) glm::vec2 texCoord;
 };
 
-}
+} // namespace RenderEngine
 
 #endif

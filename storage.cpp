@@ -81,4 +81,4 @@ int addMesh(Mesh& meshData) {
     return lastIndex++;
 }
 
-}
+} // namespace RenderEngine

@@ -9,6 +9,6 @@ struct UniformBufferObject {
     alignas(16) glm::mat4 model;
 };
 
-}
+} // namespace RenderEngine
 
 #endif

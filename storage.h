@@ -24,6 +24,6 @@ struct Mesh {
  */
 int addMesh(Mesh& mesh);
 
-}
+} // namespace RenderEngine
 
 #endif
