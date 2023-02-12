@@ -169,18 +169,21 @@ void setPhysicalDevice(uint32_t deviceId) {
 void createDevice() {
     const uint32_t INFOS_COUNT = 2;
     VkDeviceQueueCreateInfo queuesCreateInfo[INFOS_COUNT]{};
+    chooseQueues(physcialDevice);
 
     queuesCreateInfo[0].sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     queuesCreateInfo[0].queueFamilyIndex = graphicFamilyIndex;
-    queuesCreateInfo[0].queueCount = 1;
-    const float queuePriorities1[] = {1.0f};
+    queuesCreateInfo[0].queueCount = 2;
+    const float queuePriorities1[] = {1.0f, 1.0f};
     queuesCreateInfo[0].pQueuePriorities = queuePriorities1;
 
-    queuesCreateInfo[1].sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-    queuesCreateInfo[1].queueFamilyIndex = presentationFamilyIndex;
-    queuesCreateInfo[1].queueCount = 1;
-    const float queuePriorities2[] = {1.0f};
-    queuesCreateInfo[1].pQueuePriorities = queuePriorities2;
+    // TODO: update create device func so queueCreateInfo want have same graphicFamilyIndex
+
+    // queuesCreateInfo[1].sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+    // queuesCreateInfo[1].queueFamilyIndex = presentationFamilyIndex;
+    // queuesCreateInfo[1].queueCount = 1;
+    // const float queuePriorities2[] = {1.0f};
+    // queuesCreateInfo[1].pQueuePriorities = queuePriorities2;
 
     VkPhysicalDeviceFeatures deviceFeatures{};
     deviceFeatures.samplerAnisotropy = VK_TRUE;
@@ -198,11 +201,11 @@ void createDevice() {
     deviceCreateInfo.enabledExtensionCount = requiredDeviceExtensions.size();
     deviceCreateInfo.enabledLayerCount = 0;
 
-    chooseQueues(physcialDevice);
+    
     vkCreateDevice(physcialDevice, &deviceCreateInfo, nullptr, &logicalDevice);
 
     vkGetDeviceQueue(logicalDevice, graphicFamilyIndex, 0, &graphicsQueue);
-    vkGetDeviceQueue(logicalDevice, presentationFamilyIndex, 0, &presentQueue);
+    vkGetDeviceQueue(logicalDevice, presentationFamilyIndex, 1, &presentQueue);
 }
 
 void destroyDevice() {
